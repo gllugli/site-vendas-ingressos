@@ -1,0 +1,93 @@
+# ============================================
+# Gitignore para Projeto Python + WordPress
+# ============================================
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+*.egg
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+pytestdebug.log
+.pyre/
+.mypy_cache/
+.dmypy.json
+cython_debug/
+
+# Ambiente virtual
+venv/
+ENV/
+env/
+.venv/
+
+# Arquivos de configuração locais
+*.env
+*.env.*
+!.env.example
+
+# ---- WordPress ----
+wp-admin/
+wp-includes/
+wp-content/cache/
+wp-content/backups/
+wp-content/upgrade/
+wp-content/uploads/
+wp-content/debug.log
+wp-content/*.log
+
+# Plugins e temas baixados
+wp-content/plugins/*
+!wp-content/plugins/index.php
+
+wp-content/themes/*
+!wp-content/themes/index.php
+
+# ---- VSCode ----
+.vscode/
+.history/
+
+# ---- Windows ----
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ---- Arquivos temporários ----
+*.tmp
+*.log
+*.bak
+*.swp
+*.swo
+*~
+
+# ---- Node (caso use no front) ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.babelrc
+
+# ---- Arquivos gerais ----
+.DS_Store
+.idea/
