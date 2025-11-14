@@ -1,6 +1,6 @@
-# Sistema de Venda de Ingressos – Paróquia
+# Sistema de Venda de Ingressos – Paróquia Nossa Senhora da Esperança
 
-> Aplicação web para venda e controle de ingressos para espetáculos teatrais da nossa igreja.
+> Aplicação web para venda e controle de ingressos para espetáculos teatrais.
 
 ## 📌 Visão geral
 
