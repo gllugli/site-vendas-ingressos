@@ -1,62 +1,148 @@
 # Sistema de Venda de Ingressos – Paróquia Nossa Senhora da Esperança
 
-> Aplicação web para venda e controle de ingressos para espetáculos teatrais.
+> Aplicação web para venda, reserva e gestão de ingressos de espetáculos teatrais da paróquia.
+
+---
 
 ## 📌 Visão geral
 
-Este repositório reúne o código do sistema de venda de ingressos utilizado pela paróquia para organizar os espetáculos teatrais.  
-O objetivo é permitir que os fiéis e convidados possam:
+Este repositório contém o código-fonte do sistema interno de **venda e controle de ingressos**, com foco em:
 
-- Comprar ingressos on-line;
-- Receber confirmação por e-mail;
-- Consultar informações sobre datas, horários e lugares disponíveis;
-- Facilitar o controle interno de público e relatórios.
+- Compra on-line de ingressos;
+- Controle de assentos e lotação do auditório;
+- Emissão e envio de ingressos;
+- Relatórios de acompanhamento de vendas para a equipe organizadora.
 
-O projeto combina:
+O sistema é totalmente independente e expõe uma **API REST**, que poderá ser consumida por qualquer frontend:  
+site institucional, página HTML própria ou integração futura com WordPress.
 
-- **WordPress** para o site institucional e páginas de divulgação;
-- **Aplicação em Python** (API/serviço) para regras de negócio, emissão de ingressos e integrações.
+---
 
-> **Status do projeto:** em fase inicial de planejamento e definição da arquitetura.
+## 🧱 Arquitetura do Sistema
+
+O backend segue uma **Arquitetura em Camadas Orientada ao Domínio (DDD simplificado)**.
+
+A aplicação é organizada em quatro camadas principais:
+
+### ● 1. Presentation (API)
+Responsável por:
+- Controladores (controllers);
+- Rotas da **API REST**;
+- Validação e formatação de entrada e saída (DTOs).
+
+Não contém lógica de negócio.
+
+### ● 2. Application (Casos de Uso)
+Contém os **use cases**, que coordenam o fluxo da aplicação:
+
+- Criar pedido de ingresso;
+- Validar disponibilidade de assentos;
+- Registrar pagamento via PIX;
+- Emitir e enviar ingressos;
+- Gerar relatórios.
+
+Aqui ficam apenas regras de aplicação, nunca regras de negócio.
+
+### ● 3. Domain (Regras de Negócio)
+A camada mais importante do sistema.
+
+Inclui:
+- **Entidades** (ex.: Espetáculo, Sessão, Assento, Pedido);
+- **Value Objects** (ex.: CPF, Email);
+- **Serviços de domínio**;
+- **Interfaces de Repositórios**.
+
+É totalmente independente de banco de dados, frameworks ou tecnologia externa.
+
+### ● 4. Infrastructure (Implementações Técnicas)
+Implementa tudo que é detalhe técnico:
+
+- Repositórios concretos (ex.: SQL);
+- Conexão com banco de dados (PostgreSQL recomendado);
+- Integração com PIX;
+- Envio de e-mails;
+- Migrações;
+- Configurações de ambiente.
+
+---
+
+## 🗂️ Estrutura de pastas (prevista)
+
+```
+/src
+  /presentation
+    /controllers
+    /routes
+    /dto
+  /application
+    /use_cases
+  /domain
+    /entities
+    /value_objects
+    /services
+    /repositories   # apenas interfaces
+  /infrastructure
+    /database
+    /repositories_impl
+    /email
+    /payment_pix
+/tests
+```
 
 ---
 
 ## 🎯 Objetivos do projeto
 
-- Oferecer um processo simples e seguro de compra de ingressos;
-- Organizar a lotação do auditório (lugares numerados);
-- Gerar relatórios de vendas para a equipe responsável;
-- Integrar, quando possível, com o site já existente em WordPress.
+- Criar um fluxo simples, seguro e estável de venda de ingressos;
+- Controlar assentos numerados do auditório;
+- Oferecer uma interface sólida para o frontend consumir;
+- Permitir relatórios de vendas para organizadores;
+- Centralizar as regras de negócio dentro do domínio.
 
 ---
 
-## 🧱 Tecnologias previstas
+## 🧱 Tecnologias
 
-- **Back-end:** Python (framework a definir – ex.: Django, Flask ou FastAPI)
-- **Front-end:** integração com WordPress (tema/plugin) + possíveis páginas em HTML/CSS/JS
-- **Banco de dados:** a definir (ex.: PostgreSQL, MySQL etc.)
-- **Controle de versão:** Git + GitHub
+- **Back-end:** Python (framework será definido entre FastAPI ou Django REST)
+- **Banco de Dados:** PostgreSQL
+- **API:** REST
+- **Versão:** Git + GitHub
 
----
-
-## 👥 Time de desenvolvimento
-
-- 3 desenvolvedores colaborando neste repositório.
-- Fluxo de trabalho com **branch principal `main`** e desenvolvimento via **branches de feature**.
-
-Detalhes sobre como contribuir estão em: [`CONTRIBUTING.md`](CONTRIBUTING.md).
+O backend é independente de qual frontend será usado.
 
 ---
 
-## 🚧 Como rodar o projeto (em construção)
+## 👥 Equipe de Desenvolvimento
 
-> Esta seção será atualizada quando a estrutura inicial da aplicação Python estiver pronta.
+- Time com 3 desenvolvedores.
+- Fluxo de trabalho:
+  - Branch principal: `main`
+  - Funcionalidades: `feature/nomedaregra`
+  - Revisões via Pull Request
 
-A ideia geral é:
+Mais detalhes em: `CONTRIBUTING.md`.
+
+---
+
+## 🚧 Como rodar o projeto (a ser atualizado)
+
+Esta seção será atualizada assim que o framework for definido.  
+A previsão é:
 
 1. Clonar o repositório;
-2. Criar e ativar um ambiente virtual (virtualenv);
-3. Instalar as dependências;
-4. Rodar o servidor de desenvolvimento.
+2. Criar/ativar ambiente virtual;
+3. Instalar dependências;
+4. Rodar servidor de desenvolvimento;
+5. Rodar testes automáticos.
 
-Assim que definirmos o framework Python e a estrutura da aplicação, incluiremos aqui os comandos detalhados.
+---
+
+## 📌 Status
+
+📍 Projeto em fase de **definição de arquitetura e estrutura inicial**.  
+As próximas etapas serão:
+
+- Escolha final do framework Python;
+- Criação da estrutura base das camadas;
+- Configuração do banco de dados;
+- Implementação dos primeiros casos de uso.
